@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -13,6 +14,10 @@ import  './assets/js/flexible'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
+
+// 引入所有api集合在API对象上 放到Vue的$API上 所有的vm对象就有了这些方法 不需要在引入 this就有
+import * as API from '@/utils/api'
+Vue.prototype.$API = API
 
 const  app = createApp(App)
 app.use(Vant)

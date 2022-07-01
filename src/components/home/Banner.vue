@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import {system} from "../../utils/api";
+
 export default {
   name: "Banner",
   data(){
@@ -22,6 +24,20 @@ export default {
         {id:3,img_url:'/static/home/banner/banner3.jpg'}
       ],
     }
+  },
+  methods: {
+    /**
+     * 获取轮播图的数据
+     */
+    getBannerList () {
+      let a = this.$API.system.sliderList().then(res => {
+        console.log('res:', res)
+        this.bannerList = res.data.objects
+      })
+    }
+  },
+  mounted() {
+    this.getBannerList()
   }
 
 }
