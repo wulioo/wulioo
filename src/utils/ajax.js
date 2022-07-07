@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const ajax = axios.create({
+  baseURL: '/api',
   headers: {
     // source: 'h5',
     // icode: 'acbd',
@@ -23,12 +24,12 @@ ajax.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   // 对响应错误做点什么
-  if (error.response) {
-    if (error.response.status === 401) {
-      window.alert('未登录，即将跳转到登录页面')
-    } else if (error.response.status === 500) {
-      window.alert('服务器正忙，请稍后重试')
-    }
-  }
+  // if (error.response) {
+  //   if (error.response.status === 401) {
+  //     window.alert('未登录，即将跳转到登录页面')
+  //   } else if (error.response.status === 500) {
+  //     window.alert('服务器正忙，请稍后重试')
+  //   }
+  // }
   return Promise.reject(error)
 })

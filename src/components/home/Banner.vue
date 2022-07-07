@@ -4,7 +4,7 @@
 
 
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(item,index) in bannerList" :key="index"><img :src="item.img_url" alt=""></van-swipe-item>
+      <van-swipe-item v-for="(item,index) in bannerList" :key="index"><img :src="item.img" alt=""></van-swipe-item>
 
     </van-swipe>
   </div>
@@ -12,16 +12,15 @@
 </template>
 
 <script>
-import {system} from "../../utils/api";
 
 export default {
   name: "Banner",
   data(){
     return{
       bannerList:[
-        {id:1,img_url:'/static/home/banner/banner1.jpg'},
-        {id:2,img_url:'/static/home/banner/banner2.jpg'},
-        {id:3,img_url:'/static/home/banner/banner3.jpg'}
+        // {id:1,img_url:'/static/home/banner/banner1.jpg'},
+        // {id:2,img_url:'/static/home/banner/banner2.jpg'},
+        // {id:3,img_url:'/static/home/banner/banner3.jpg'}
       ],
     }
   },
@@ -30,14 +29,16 @@ export default {
      * 获取轮播图的数据
      */
     getBannerList () {
-      let a = this.$API.system.sliderList().then(res => {
-        console.log('res:', res)
-        this.bannerList = res.data.objects
+      this.API.system.sliderList().then(({data}) => {
+        this.bannerList = data
+      }).catch(error =>{
+        console.log(error)
       })
     }
   },
   mounted() {
     this.getBannerList()
+
   }
 
 }

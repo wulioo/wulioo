@@ -5,18 +5,19 @@
               is-link
               value="全部榜单"
               title-style="text-align:left"
+              :to="{name:'Search',query:{is_hot:true}}"
               icon="/static/home/hot/fire.png"/>
     <div class="box-main">
-      <a href="" class="hot_item" v-for="(item,index) in hotList" :key="index">
+      <router-link :to="{name:'SightDetail',params:{id:item.id}}" class="hot_item" v-for="(item,index) in hotList" :key="index">
         <div class="img">
           <span></span>
-          <img :src="item.img_url" alt="">
+          <img :src="item.main_img" alt="">
         </div>
 
-        <div class="title">{{ item.title }}</div>
+        <div class="title">{{ item.name }}</div>
         <div class="line-price">
-          <span class="prices">￥{{item.prices}}</span>起</div>
-      </a>
+          <span class="prices">￥{{item.min_price}}</span>起</div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,18 +28,34 @@ export default {
   data() {
     return {
       hotList: [
-        {id: 1, img_url: '/static/home/hot/h1.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 2, img_url: '/static/home/hot/h2.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 3, img_url: '/static/home/hot/h3.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 4, img_url: '/static/home/hot/h4.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 5, img_url: '/static/home/hot/h5.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 6, img_url: '/static/home/hot/h6.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 7, img_url: '/static/home/hot/h7.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 8, img_url: '/static/home/hot/h8.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 9, img_url: '/static/home/hot/h9.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
-        {id: 10, img_url: '/static/home/hot/h10.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 1, img_url: '/static/home/hot/h1.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 2, img_url: '/static/home/hot/h2.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 3, img_url: '/static/home/hot/h3.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 4, img_url: '/static/home/hot/h4.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 5, img_url: '/static/home/hot/h5.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 6, img_url: '/static/home/hot/h6.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 7, img_url: '/static/home/hot/h7.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 8, img_url: '/static/home/hot/h8.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 9, img_url: '/static/home/hot/h9.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
+        // {id: 10, img_url: '/static/home/hot/h10.jpg',title:'阿斯顿撒旦阿萨德阿斯顿撒',prices:69},
       ],
     }
+  },
+  methods:{
+    /**
+     * 获取热门推荐数据
+     */
+    getHotList () {
+      this.API.sight.sightList({is_hot:1}).then(({data}) => {
+        this.hotList = data.results
+
+      }).catch(error =>{
+        console.log(error)
+      })
+    }
+  },
+  mounted() {
+    this.getHotList()
   }
 }
 </script>
@@ -95,7 +112,7 @@ export default {
           z-index: 10;
         }
         img {
-          width: 100%;
+          width: 2.415rem;
           height: 2.415rem;
         }
       }

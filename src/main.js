@@ -15,10 +15,13 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 
 
-// 引入所有api集合在API对象上 放到Vue的$API上 所有的vm对象就有了这些方法 不需要在引入 this就有
-import * as API from '@/utils/api'
-Vue.prototype.$API = API
+
+
+
 
 const  app = createApp(App)
+// 引入所有api集合在API对象上 放到Vue的$API上 所有的vm对象就有了这些方法 不需要在引入 this就有
+import * as API from '@/utils/api'
+app.config.globalProperties.API = API
 app.use(Vant)
 app.use(store).use(router).mount('#app')
