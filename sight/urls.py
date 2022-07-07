@@ -13,14 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from sight.views import SightListView
+from sight.views import SightListView, SighDetailView, TicketListView, CommentListView
 
-router = DefaultRouter()
-router.register(r'sight/list', SightListView, basename='sight/list')
+# router = DefaultRouter()
+# # 景点列表
+# router.register(r'sight/list', SightListView, basename='sight/list')
+#
+# router.register(r'sight/detail/<int:pk>/', SighDetailView, basename='sight/detail')
+#
+# urlpatterns = [
+#
+# ] + router.urls
+
 
 urlpatterns = [
+    # 2.2 景点详情
+    path('sight/detail/<int:pk>', SighDetailView.as_view({'get': 'retrieve'})),
+    # 2.1 景点列表接口
+    path('sight/list', SightListView.as_view({'get': 'list'})),
+    # 2.3 门票列表接口
+    path('sight/ticket', TicketListView.as_view({'get': 'list'})),
+    # 2.4 热门评论
+    path('sight/comment', CommentListView.as_view({'get': 'list'})),
 
-] + router.urls
+]

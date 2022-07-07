@@ -33,7 +33,7 @@ class ImageRelated(CommonModel):
                              verbose_name='上传的用户',
                              null=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.IntegerField('关联的模型')
+    object_id = models.PositiveIntegerField('关联的模型')
     content_object = GenericForeignKey('content_type', 'object_id')
 
     class Meta:

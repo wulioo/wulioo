@@ -20,9 +20,10 @@ from rest_framework.routers import DefaultRouter
 from system.views import SliderList
 
 router = DefaultRouter()
-router.register(r'slider/list', SliderList, basename='slider/list')
+# router.register(r'slider/list', SliderList, basename='slider/list')
 
 urlpatterns = [
-    # path('slider/list/', SliderList, basename="slider_list"),
+    path('slider/list', SliderList.as_view({'get': 'list'}), name="slider_list"),
 
-] + router.urls
+]
+# + router.urls

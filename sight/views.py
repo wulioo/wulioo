@@ -5,8 +5,8 @@ from django.shortcuts import render
 from rest_framework import mixins, viewsets
 
 from common.paging import Pagination
-from sight.models import Sight
-from sight.serializers import SightSerializer
+from sight.models import Sight, Info, Ticket, Comment
+from sight.serializers import SightSerializer, SightDetailSerializer, TicketSerializer, CommentSerializer
 
 
 class SightListView(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -32,3 +32,37 @@ class SightListView(mixins.ListModelMixin, viewsets.GenericViewSet):
 
         queryset = Sight.objects.filter(query)
         return queryset
+
+
+#
+class SighDetailView(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    serializer_class = SightDetailSerializer
+
+    def get_queryset(self):
+        return Sight.objects.all()
+
+
+class TicketListView(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = TicketSerializer
+    # lookup_field = 'sight_id'
+
+    def get_queryset(self):
+        sight = self.request.GET.get('sight_id', None)
+        return Ticket.objects.filter(sight_id=sight)
+
+
+class CommentListView(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = CommentSerializer
+    # lookup_field = 'sight_id'
+
+    def get_queryset(self):
+        sight = self.request.GET.get('sight_id', None)
+        sight = Sight.objects.filter(pk=sight, is_valid=True).first()
+        b = Comment.objects.filter(sight_id=sight)
+        # c = b.images.filter(is_valid=True)
+        # if sight:
+        #     # return Comment.objects.filter(is_valid=True, sight=sight)
+        #      return sight.comments.filter(is_valid=True)
+
+
+        return Comment.objects.filter(sight_id=sight)
