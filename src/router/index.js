@@ -7,6 +7,8 @@ import SightComment from '../views/sight/SightComment.vue'
 import SightInfo from '../views/sight/SightInfo.vue'
 import SightDetail from '../views/sight/SightDetail.vue'
 import SightList from '../views/sight/SightList.vue'
+import Login from '../views/account/login.vue'
+import Register from '../views/account/register.vue'
 
 
 const routes = [
@@ -53,6 +55,18 @@ const routes = [
     path: '/sight/image/:id',
     name: 'SightImage',
     component: SightImage
+  },
+  //登录
+  {
+    path: '/account/login',
+    name: 'login',
+    component: Login
+  },
+  //注册
+  {
+    path: '/account/register',
+    name: 'register',
+    component: Register
   }
 ]
 
