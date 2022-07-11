@@ -13,16 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from rest_framework.routers import DefaultRouter
+
+from accounts.views import RegisterViewSet
+from sight.views import SightListView, SighDetailView, TicketListView, CommentListView
+
+
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # 系统模块
-    path('system/', include('system.urls')),
 
-    # 景点模块
-    path('sight/',include('sight.urls')),
+    # 2.4 热门评论
+    path('register', RegisterViewSet.as_view({'get':'list',"post":'create'}),name='register'),
 
-    path('account/',include('accounts.urls'))
 ]

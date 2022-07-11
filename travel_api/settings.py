@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-3mxe=rwg8@)wa$m0nh#t1nyxy$=m1^k@x9e9ko$o6#ao09v61b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'travel',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': 'aa1234bb',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -138,7 +138,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # 配置数据库图片地址返回带域名
 MEDIA_URL = 'http://localhost:8080/'
 APPEND_SLASH = False
-# 跨域增加忽略
+# 跨域增加忽fff略
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ()
